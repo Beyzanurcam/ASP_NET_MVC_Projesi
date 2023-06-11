@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="STAJCALISMASIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBL_HAT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SIFRELIID" Type="uniqueidentifier" />
+          <Property Name="HAT_NO" Type="char" MaxLength="11" />
+          <Property Name="HAT_DURUM" Type="tinyint" />
+          <Property Name="KAYITTARIH" Type="datetime" />
+          <Property Name="HATSATIS_DURUM" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="TBL_HATSATIS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SIFRELIID" Type="uniqueidentifier" />
+          <Property Name="SATISTARIH" Type="datetime" />
+          <Property Name="HATSATISKULLANICIID" Type="int" Nullable="false" />
+          <Property Name="HATSATISHATID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_KULLANICI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SIFRELIID" Type="uniqueidentifier" />
+          <Property Name="KULLANICI_ADI" Type="nvarchar" MaxLength="50" />
+          <Property Name="KULLANICI_SOYADI" Type="nvarchar" MaxLength="50" />
+          <Property Name="KULLANICI_MAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="KULLANICI_TEL" Type="nvarchar" MaxLength="50" />
+          <Property Name="KULLANICI_SIFRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="KAYITTARIHI" Type="datetime" />
+          <Property Name="KULLANICI_ADI_SOYADI" Type="nvarchar" MaxLength="110" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'STAJCALISMASI.dbo.VW_HATSATIS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_HATSATIS">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="HATSATISKULLANICIID" />
+            <PropertyRef Name="HATSATISHATID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SIFRELIID" Type="uniqueidentifier" />
+          <Property Name="SATISTARIH" Type="datetime" />
+          <Property Name="HATSATISKULLANICIID" Type="int" Nullable="false" />
+          <Property Name="HATSATISHATID" Type="int" Nullable="false" />
+          <Property Name="HAT_DURUM" Type="tinyint" />
+          <Property Name="KULLANICI_ADI_SOYADI" Type="nvarchar" MaxLength="110" />
+          <Property Name="HAT_NO" Type="char" MaxLength="11" />
+          <Property Name="HATSATIS_DURUM" Type="tinyint" />
+        </EntityType>
+        <Association Name="FK_TBL_HATSATIS_TBL_HAT">
+          <End Role="TBL_HAT" Type="Self.TBL_HAT" Multiplicity="1" />
+          <End Role="TBL_HATSATIS" Type="Self.TBL_HATSATIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_HAT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_HATSATIS">
+              <PropertyRef Name="HATSATISHATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_HATSATIS_TBL_KULLANICI">
+          <End Role="TBL_KULLANICI" Type="Self.TBL_KULLANICI" Multiplicity="1" />
+          <End Role="TBL_HATSATIS" Type="Self.TBL_HATSATIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KULLANICI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_HATSATIS">
+              <PropertyRef Name="HATSATISKULLANICIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_hat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="SIFRELIID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="HAT_NO" Type="char" Mode="In" />
+          <Parameter Name="HAT_DURUM" Type="tinyint" Mode="In" />
+          <Parameter Name="KAYITTARIHI" Type="datetime" Mode="In" />
+          <Parameter Name="HATSATIS_DURUM" Type="tinyint" Mode="In" />
+          <Parameter Name="hatislem" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_hatsatis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="SIFRELIID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="SATISTARIH" Type="datetime" Mode="In" />
+          <Parameter Name="HATSATISKULLANICIID" Type="int" Mode="In" />
+          <Parameter Name="HATSATISHATID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_hatsatisdurumdegistir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="HAT_DURUM" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="sp_hatsatisdurumdegistir2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="HATSATIS_DURUM" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_kullanici" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="SIFRELIID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="KULLANICI_ADI" Type="nvarchar" Mode="In" />
+          <Parameter Name="KULLANICI_SOYADI" Type="nvarchar" Mode="In" />
+          <Parameter Name="KULLANICI_MAIL" Type="nvarchar" Mode="In" />
+          <Parameter Name="KULLANICI_TEL" Type="nvarchar" Mode="In" />
+          <Parameter Name="KULLANICI_SIFRE" Type="nvarchar" Mode="In" />
+          <Parameter Name="KAYITTARIHI" Type="datetime" Mode="In" />
+          <Parameter Name="KULLANICI_ADI_SOYADI" Type="nvarchar" Mode="In" />
+          <Parameter Name="islem" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="STAJCALISMASIModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_HAT" EntityType="Self.TBL_HAT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_HATSATIS" EntityType="Self.TBL_HATSATIS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_KULLANICI" EntityType="Self.TBL_KULLANICI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VW_HATSATIS" EntityType="Self.VW_HATSATIS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_HATSATIS].[ID] AS [ID], 
+    [VW_HATSATIS].[SIFRELIID] AS [SIFRELIID], 
+    [VW_HATSATIS].[SATISTARIH] AS [SATISTARIH], 
+    [VW_HATSATIS].[HATSATISKULLANICIID] AS [HATSATISKULLANICIID], 
+    [VW_HATSATIS].[HATSATISHATID] AS [HATSATISHATID], 
+    [VW_HATSATIS].[HAT_DURUM] AS [HAT_DURUM], 
+    [VW_HATSATIS].[KULLANICI_ADI_SOYADI] AS [KULLANICI_ADI_SOYADI], 
+    [VW_HATSATIS].[HAT_NO] AS [HAT_NO], 
+    [VW_HATSATIS].[HATSATIS_DURUM] AS [HATSATIS_DURUM]
+    FROM [dbo].[VW_HATSATIS] AS [VW_HATSATIS]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_TBL_HATSATIS_TBL_HAT" Association="Self.FK_TBL_HATSATIS_TBL_HAT">
+            <End Role="TBL_HAT" EntitySet="TBL_HAT" />
+            <End Role="TBL_HATSATIS" EntitySet="TBL_HATSATIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_HATSATIS_TBL_KULLANICI" Association="Self.FK_TBL_HATSATIS_TBL_KULLANICI">
+            <End Role="TBL_KULLANICI" EntitySet="TBL_KULLANICI" />
+            <End Role="TBL_HATSATIS" EntitySet="TBL_HATSATIS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="STAJCALISMASIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBL_HAT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SIFRELIID" Type="Guid" />
+          <Property Name="HAT_NO" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="HAT_DURUM" Type="Byte" />
+          <Property Name="KAYITTARIH" Type="DateTime" Precision="3" />
+          <Property Name="HATSATIS_DURUM" Type="Byte" />
+          <NavigationProperty Name="TBL_HATSATIS" Relationship="Self.FK_TBL_HATSATIS_TBL_HAT" FromRole="TBL_HAT" ToRole="TBL_HATSATIS" />
+        </EntityType>
+        <EntityType Name="TBL_HATSATIS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SIFRELIID" Type="Guid" />
+          <Property Name="SATISTARIH" Type="DateTime" Precision="3" />
+          <Property Name="HATSATISKULLANICIID" Type="Int32" Nullable="false" />
+          <Property Name="HATSATISHATID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_HAT" Relationship="Self.FK_TBL_HATSATIS_TBL_HAT" FromRole="TBL_HATSATIS" ToRole="TBL_HAT" />
+          <NavigationProperty Name="TBL_KULLANICI" Relationship="Self.FK_TBL_HATSATIS_TBL_KULLANICI" FromRole="TBL_HATSATIS" ToRole="TBL_KULLANICI" />
+        </EntityType>
+        <EntityType Name="TBL_KULLANICI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SIFRELIID" Type="Guid" />
+          <Property Name="KULLANICI_ADI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KULLANICI_SOYADI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KULLANICI_MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KULLANICI_TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KULLANICI_SIFRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KAYITTARIHI" Type="DateTime" Precision="3" />
+          <Property Name="KULLANICI_ADI_SOYADI" Type="String" MaxLength="110" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_HATSATIS" Relationship="Self.FK_TBL_HATSATIS_TBL_KULLANICI" FromRole="TBL_KULLANICI" ToRole="TBL_HATSATIS" />
+        </EntityType>
+        <EntityType Name="VW_HATSATIS">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="HATSATISKULLANICIID" />
+            <PropertyRef Name="HATSATISHATID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SIFRELIID" Type="Guid" />
+          <Property Name="SATISTARIH" Type="DateTime" Precision="3" />
+          <Property Name="HATSATISKULLANICIID" Type="Int32" Nullable="false" />
+          <Property Name="HATSATISHATID" Type="Int32" Nullable="false" />
+          <Property Name="HAT_DURUM" Type="Byte" />
+          <Property Name="KULLANICI_ADI_SOYADI" Type="String" MaxLength="110" FixedLength="false" Unicode="true" />
+          <Property Name="HAT_NO" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="HATSATIS_DURUM" Type="Byte" />
+        </EntityType>
+        <Association Name="FK_TBL_HATSATIS_TBL_HAT">
+          <End Role="TBL_HAT" Type="Self.TBL_HAT" Multiplicity="1" />
+          <End Role="TBL_HATSATIS" Type="Self.TBL_HATSATIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_HAT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_HATSATIS">
+              <PropertyRef Name="HATSATISHATID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_HATSATIS_TBL_KULLANICI">
+          <End Role="TBL_KULLANICI" Type="Self.TBL_KULLANICI" Multiplicity="1" />
+          <End Role="TBL_HATSATIS" Type="Self.TBL_HATSATIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KULLANICI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBL_HATSATIS">
+              <PropertyRef Name="HATSATISKULLANICIID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="STAJCALISMASIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TBL_HAT" EntityType="Self.TBL_HAT" />
+          <EntitySet Name="TBL_HATSATIS" EntityType="Self.TBL_HATSATIS" />
+          <EntitySet Name="TBL_KULLANICI" EntityType="Self.TBL_KULLANICI" />
+          <EntitySet Name="VW_HATSATIS" EntityType="Self.VW_HATSATIS" />
+          <AssociationSet Name="FK_TBL_HATSATIS_TBL_HAT" Association="Self.FK_TBL_HATSATIS_TBL_HAT">
+            <End Role="TBL_HAT" EntitySet="TBL_HAT" />
+            <End Role="TBL_HATSATIS" EntitySet="TBL_HATSATIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_HATSATIS_TBL_KULLANICI" Association="Self.FK_TBL_HATSATIS_TBL_KULLANICI">
+            <End Role="TBL_KULLANICI" EntitySet="TBL_KULLANICI" />
+            <End Role="TBL_HATSATIS" EntitySet="TBL_HATSATIS" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_hat">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="SIFRELIID" Mode="In" Type="Guid" />
+            <Parameter Name="HAT_NO" Mode="In" Type="String" />
+            <Parameter Name="HAT_DURUM" Mode="In" Type="Byte" />
+            <Parameter Name="KAYITTARIHI" Mode="In" Type="DateTime" />
+            <Parameter Name="HATSATIS_DURUM" Mode="In" Type="Byte" />
+            <Parameter Name="hatislem" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_hatsatis">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="SIFRELIID" Mode="In" Type="Guid" />
+            <Parameter Name="SATISTARIH" Mode="In" Type="DateTime" />
+            <Parameter Name="HATSATISKULLANICIID" Mode="In" Type="Int32" />
+            <Parameter Name="HATSATISHATID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_hatsatisdurumdegistir">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="HAT_DURUM" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="sp_hatsatisdurumdegistir2">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="HATSATIS_DURUM" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(STAJCALISMASIModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(STAJCALISMASIModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_kullanici">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="SIFRELIID" Mode="In" Type="Guid" />
+            <Parameter Name="KULLANICI_ADI" Mode="In" Type="String" />
+            <Parameter Name="KULLANICI_SOYADI" Mode="In" Type="String" />
+            <Parameter Name="KULLANICI_MAIL" Mode="In" Type="String" />
+            <Parameter Name="KULLANICI_TEL" Mode="In" Type="String" />
+            <Parameter Name="KULLANICI_SIFRE" Mode="In" Type="String" />
+            <Parameter Name="KAYITTARIHI" Mode="In" Type="DateTime" />
+            <Parameter Name="KULLANICI_ADI_SOYADI" Mode="In" Type="String" />
+            <Parameter Name="islem" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="STAJCALISMASIModelStoreContainer" CdmEntityContainer="STAJCALISMASIEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="STAJCALISMASIModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_HAT">
+            <EntityTypeMapping TypeName="STAJCALISMASIModel.TBL_HAT">
+              <MappingFragment StoreEntitySet="TBL_HAT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+                <ScalarProperty Name="HAT_NO" ColumnName="HAT_NO" />
+                <ScalarProperty Name="HAT_DURUM" ColumnName="HAT_DURUM" />
+                <ScalarProperty Name="KAYITTARIH" ColumnName="KAYITTARIH" />
+                <ScalarProperty Name="HATSATIS_DURUM" ColumnName="HATSATIS_DURUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_HATSATIS">
+            <EntityTypeMapping TypeName="STAJCALISMASIModel.TBL_HATSATIS">
+              <MappingFragment StoreEntitySet="TBL_HATSATIS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+                <ScalarProperty Name="SATISTARIH" ColumnName="SATISTARIH" />
+                <ScalarProperty Name="HATSATISKULLANICIID" ColumnName="HATSATISKULLANICIID" />
+                <ScalarProperty Name="HATSATISHATID" ColumnName="HATSATISHATID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_KULLANICI">
+            <EntityTypeMapping TypeName="STAJCALISMASIModel.TBL_KULLANICI">
+              <MappingFragment StoreEntitySet="TBL_KULLANICI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+                <ScalarProperty Name="KULLANICI_ADI" ColumnName="KULLANICI_ADI" />
+                <ScalarProperty Name="KULLANICI_SOYADI" ColumnName="KULLANICI_SOYADI" />
+                <ScalarProperty Name="KULLANICI_MAIL" ColumnName="KULLANICI_MAIL" />
+                <ScalarProperty Name="KULLANICI_TEL" ColumnName="KULLANICI_TEL" />
+                <ScalarProperty Name="KULLANICI_SIFRE" ColumnName="KULLANICI_SIFRE" />
+                <ScalarProperty Name="KAYITTARIHI" ColumnName="KAYITTARIHI" />
+                <ScalarProperty Name="KULLANICI_ADI_SOYADI" ColumnName="KULLANICI_ADI_SOYADI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_HATSATIS">
+            <EntityTypeMapping TypeName="STAJCALISMASIModel.VW_HATSATIS">
+              <MappingFragment StoreEntitySet="VW_HATSATIS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+                <ScalarProperty Name="SATISTARIH" ColumnName="SATISTARIH" />
+                <ScalarProperty Name="HATSATISKULLANICIID" ColumnName="HATSATISKULLANICIID" />
+                <ScalarProperty Name="HATSATISHATID" ColumnName="HATSATISHATID" />
+                <ScalarProperty Name="HAT_DURUM" ColumnName="HAT_DURUM" />
+                <ScalarProperty Name="KULLANICI_ADI_SOYADI" ColumnName="KULLANICI_ADI_SOYADI" />
+                <ScalarProperty Name="HAT_NO" ColumnName="HAT_NO" />
+                <ScalarProperty Name="HATSATIS_DURUM" ColumnName="HATSATIS_DURUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="STAJCALISMASIModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="STAJCALISMASIModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="STAJCALISMASIModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_hat" FunctionName="STAJCALISMASIModel.Store.sp_hat" />
+          <FunctionImportMapping FunctionImportName="sp_hatsatis" FunctionName="STAJCALISMASIModel.Store.sp_hatsatis" />
+          <FunctionImportMapping FunctionImportName="sp_hatsatisdurumdegistir" FunctionName="STAJCALISMASIModel.Store.sp_hatsatisdurumdegistir" />
+          <FunctionImportMapping FunctionImportName="sp_hatsatisdurumdegistir2" FunctionName="STAJCALISMASIModel.Store.sp_hatsatisdurumdegistir2" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="STAJCALISMASIModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STAJCALISMASIModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="STAJCALISMASIModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="STAJCALISMASIModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_kullanici" FunctionName="STAJCALISMASIModel.Store.sp_kullanici" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="STAJCALISMASIModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="STAJCALISMASIModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

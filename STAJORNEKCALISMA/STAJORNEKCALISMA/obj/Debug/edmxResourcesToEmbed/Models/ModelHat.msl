@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="STAJCALISMASIModel1StoreContainer" CdmEntityContainer="STAJCALISMASIEntities1">
+    <EntitySetMapping Name="TBL_HAT">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel1.TBL_HAT">
+        <MappingFragment StoreEntitySet="TBL_HAT">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="HAT_NO" ColumnName="HAT_NO" />
+          <ScalarProperty Name="HAT_DURUM" ColumnName="HAT_DURUM" />
+          <ScalarProperty Name="KAYITTARIH" ColumnName="KAYITTARIH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_KULLANICI">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel1.TBL_KULLANICI">
+        <MappingFragment StoreEntitySet="TBL_KULLANICI">
+          <ScalarProperty Name="KULLANICI_ADI_SOYADI" ColumnName="KULLANICI_ADI_SOYADI" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="KULLANICI_ADI" ColumnName="KULLANICI_ADI" />
+          <ScalarProperty Name="KULLANICI_SOYADI" ColumnName="KULLANICI_SOYADI" />
+          <ScalarProperty Name="KULLANICI_MAIL" ColumnName="KULLANICI_MAIL" />
+          <ScalarProperty Name="KULLANICI_TEL" ColumnName="KULLANICI_TEL" />
+          <ScalarProperty Name="KULLANICI_SIFRE" ColumnName="KULLANICI_SIFRE" />
+          <ScalarProperty Name="KAYITTARIHI" ColumnName="KAYITTARIHI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_hat" FunctionName="STAJCALISMASIModel1.Store.sp_hat" />
+    <FunctionImportMapping FunctionImportName="sp_kullanici" FunctionName="STAJCALISMASIModel1.Store.sp_kullanici" />
+    <EntitySetMapping Name="TBL_HATSATIS">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel1.TBL_HATSATIS">
+        <MappingFragment StoreEntitySet="TBL_HATSATIS">
+          <ScalarProperty Name="HATSATISHATID" ColumnName="HATSATISHATID" />
+          <ScalarProperty Name="HATSATISKULLANICIID" ColumnName="HATSATISKULLANICIID" />
+          <ScalarProperty Name="SATISTARIH" ColumnName="SATISTARIH" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_hatsatis" FunctionName="STAJCALISMASIModel1.Store.sp_hatsatis" />
+  </EntityContainerMapping>
+</Mapping>

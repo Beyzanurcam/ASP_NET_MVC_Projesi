@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="STAJCALISMASIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_HAT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SIFRELIID" Type="Guid" />
+    <Property Name="HAT_NO" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="HAT_DURUM" Type="Byte" />
+    <Property Name="KAYITTARIH" Type="DateTime" Precision="3" />
+    <Property Name="HATSATIS_DURUM" Type="Byte" />
+    <NavigationProperty Name="TBL_HATSATIS" Relationship="Self.FK_TBL_HATSATIS_TBL_HAT" FromRole="TBL_HAT" ToRole="TBL_HATSATIS" />
+  </EntityType>
+  <EntityType Name="TBL_HATSATIS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SIFRELIID" Type="Guid" />
+    <Property Name="SATISTARIH" Type="DateTime" Precision="3" />
+    <Property Name="HATSATISKULLANICIID" Type="Int32" Nullable="false" />
+    <Property Name="HATSATISHATID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TBL_HAT" Relationship="Self.FK_TBL_HATSATIS_TBL_HAT" FromRole="TBL_HATSATIS" ToRole="TBL_HAT" />
+    <NavigationProperty Name="TBL_KULLANICI" Relationship="Self.FK_TBL_HATSATIS_TBL_KULLANICI" FromRole="TBL_HATSATIS" ToRole="TBL_KULLANICI" />
+  </EntityType>
+  <EntityType Name="TBL_KULLANICI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SIFRELIID" Type="Guid" />
+    <Property Name="KULLANICI_ADI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_SOYADI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_SIFRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KAYITTARIHI" Type="DateTime" Precision="3" />
+    <Property Name="KULLANICI_ADI_SOYADI" Type="String" MaxLength="110" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TBL_HATSATIS" Relationship="Self.FK_TBL_HATSATIS_TBL_KULLANICI" FromRole="TBL_KULLANICI" ToRole="TBL_HATSATIS" />
+  </EntityType>
+  <EntityType Name="VW_HATSATIS">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="HATSATISKULLANICIID" />
+      <PropertyRef Name="HATSATISHATID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="SIFRELIID" Type="Guid" />
+    <Property Name="SATISTARIH" Type="DateTime" Precision="3" />
+    <Property Name="HATSATISKULLANICIID" Type="Int32" Nullable="false" />
+    <Property Name="HATSATISHATID" Type="Int32" Nullable="false" />
+    <Property Name="HAT_DURUM" Type="Byte" />
+    <Property Name="KULLANICI_ADI_SOYADI" Type="String" MaxLength="110" FixedLength="false" Unicode="true" />
+    <Property Name="HAT_NO" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="HATSATIS_DURUM" Type="Byte" />
+  </EntityType>
+  <Association Name="FK_TBL_HATSATIS_TBL_HAT">
+    <End Role="TBL_HAT" Type="Self.TBL_HAT" Multiplicity="1" />
+    <End Role="TBL_HATSATIS" Type="Self.TBL_HATSATIS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_HAT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBL_HATSATIS">
+        <PropertyRef Name="HATSATISHATID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_HATSATIS_TBL_KULLANICI">
+    <End Role="TBL_KULLANICI" Type="Self.TBL_KULLANICI" Multiplicity="1" />
+    <End Role="TBL_HATSATIS" Type="Self.TBL_HATSATIS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_KULLANICI">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBL_HATSATIS">
+        <PropertyRef Name="HATSATISKULLANICIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="STAJCALISMASIEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TBL_HAT" EntityType="Self.TBL_HAT" />
+    <EntitySet Name="TBL_HATSATIS" EntityType="Self.TBL_HATSATIS" />
+    <EntitySet Name="TBL_KULLANICI" EntityType="Self.TBL_KULLANICI" />
+    <EntitySet Name="VW_HATSATIS" EntityType="Self.VW_HATSATIS" />
+    <AssociationSet Name="FK_TBL_HATSATIS_TBL_HAT" Association="Self.FK_TBL_HATSATIS_TBL_HAT">
+      <End Role="TBL_HAT" EntitySet="TBL_HAT" />
+      <End Role="TBL_HATSATIS" EntitySet="TBL_HATSATIS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_HATSATIS_TBL_KULLANICI" Association="Self.FK_TBL_HATSATIS_TBL_KULLANICI">
+      <End Role="TBL_KULLANICI" EntitySet="TBL_KULLANICI" />
+      <End Role="TBL_HATSATIS" EntitySet="TBL_HATSATIS" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_hat">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="SIFRELIID" Mode="In" Type="Guid" />
+      <Parameter Name="HAT_NO" Mode="In" Type="String" />
+      <Parameter Name="HAT_DURUM" Mode="In" Type="Byte" />
+      <Parameter Name="KAYITTARIHI" Mode="In" Type="DateTime" />
+      <Parameter Name="HATSATIS_DURUM" Mode="In" Type="Byte" />
+      <Parameter Name="hatislem" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_hatsatis">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="SIFRELIID" Mode="In" Type="Guid" />
+      <Parameter Name="SATISTARIH" Mode="In" Type="DateTime" />
+      <Parameter Name="HATSATISKULLANICIID" Mode="In" Type="Int32" />
+      <Parameter Name="HATSATISHATID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_hatsatisdurumdegistir">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="HAT_DURUM" Mode="In" Type="Byte" />
+    </FunctionImport>
+    <FunctionImport Name="sp_hatsatisdurumdegistir2">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="HATSATIS_DURUM" Mode="In" Type="Byte" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(STAJCALISMASIModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(STAJCALISMASIModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_kullanici">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="SIFRELIID" Mode="In" Type="Guid" />
+      <Parameter Name="KULLANICI_ADI" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_SOYADI" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_MAIL" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_TEL" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_SIFRE" Mode="In" Type="String" />
+      <Parameter Name="KAYITTARIHI" Mode="In" Type="DateTime" />
+      <Parameter Name="KULLANICI_ADI_SOYADI" Mode="In" Type="String" />
+      <Parameter Name="islem" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "HatTanim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("HatTanim", "Hat", FormMethod.Post, new { @id = "frmHatKayit", enctype = "multipart/form-data", autocomplete = "off" }))
+{
+    <div class="row mb-10">
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Hat No</label>
+            <input class="form-control " type="text" name="HAT_NO" autocomplete="off" />
+        </div>
+
+
+        <div class="col-md-12 text-center">
+            <div type="submit" id="btnHatKaydet" class="btn btn-success mb-5" value="Giriş Yap">
+                <span class="indicator-label">Hat Kaydet</span>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).on('touchstart click', '#btnHatKaydet', function (e) {
+        var str = new FormData($('#frmHatKayit')[0]);
+        $.ajax({
+            cache: false,
+            global: false,
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            mimeType: "multipart/form-data",
+            data: str,
+            dataType: 'json',
+            url: "/Hat/HatTanim",
+            beforeSend: function () {
+            },
+            success: function () {
+                alert("Hat Eklendi");
+                window.location = "/Hat/HatListe";
+            },
+            error: function () {
+                alert("Başarısız");
+            },
+            complete: function () {
+
+            }
+        });
+    }
+    );
+</script>
+

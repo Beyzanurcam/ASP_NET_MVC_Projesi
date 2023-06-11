@@ -1,0 +1,70 @@
+﻿@model STAJORNEKCALISMA.Models.Class1
+
+@{
+    ViewBag.Title = "HatSatis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("HatSatis", "Satis", FormMethod.Post, new { @id = "frmHatSatisKayit", enctype = "multipart/form-data", autocomplete = "off" }))
+{
+    <div class="row mb-10">
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Kullanıcı Seç</label>
+            @Html.DropDownList("DrpKisi",Model.Kisiler, "Kişi Seçiniz",  new { @id="kisiler", @class = "form-control" })
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Hat Seç</label>
+            @Html.DropDownList("DrpHat", Model.Hatlar, "Hat Seçiniz", new { @id = "hatlar", @class = "form-control" })
+        </div>
+
+        <div class="col-md-12 text-center">
+            <div id="btnHatSat" class="btn btn-success mb-5">
+                <span class="indicator-label">Hat Sat</span>
+            </div>
+        </div>
+    </div>
+}
+
+    <script type="text/javascript">
+
+        $(document).on('touchstart click', '#btnHatSat', function (e) {
+            debugger;
+            var kullaniciID = $('#kisiler').find(':selected').val();
+            var hatID = $('#hatlar').find(':selected').val(); 
+
+            //const dropkisiler = document.getElementById("kisiler");
+            //const drophat= document.getElementById("hatlar");
+            //var kadi = dropkisiler.options[dropkisiler.selectedIndex].value;
+            //var khat = drophat.options[drophat.selectedIndex].value;
+            //var isim = dropkisiler.val();  // textbox için
+
+            $.ajax({
+                url: "/Satis/HatSatis/",
+                type: 'POST',
+                mimeType: "multipart/form-data",
+                data: {
+                    HATSATISKULLANICIID: kullaniciID,
+                    HATSATISHATID: hatID
+                },
+                dataType: 'json',
+
+                success: function () {
+                    alert("Hat Satışı Yapıldı.");
+                    window.location = "/Satis/HatSatisTanim";
+                },
+                error: function () {
+                    alert("Başarısız");
+                },
+                complete: function () {
+
+                }
+            });
+        }
+        );
+    </script>
+
+
+
+
+

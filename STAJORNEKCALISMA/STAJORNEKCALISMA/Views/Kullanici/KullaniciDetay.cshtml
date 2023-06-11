@@ -1,0 +1,81 @@
+﻿@model STAJORNEKCALISMA.Models.TBL_KULLANICI
+@{
+    ViewBag.Title = "KullaniciDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("KullaniciGuncelle", "Kullanici", FormMethod.Post, new { @id = "frmGuncelle", enctype = "multipart/form-data", autocomplete = "off" }))
+{
+    <div class="row mb-10">
+        <div class="col-md-6 mb-3">
+            @Html.HiddenFor(y=>y.ID)
+            <label class="form-label">Ad</label>
+            @*<input class="form-control " type="text" name="KULLANICI_ADI" autocomplete="off" />*@
+            @Html.TextBoxFor(x => x.KULLANICI_ADI, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Soyad</label>
+            @*<input class="form-control " type="text" name="KULLANICI_SOYADI" autocomplete="off" />*@
+            @Html.TextBoxFor(x => x.KULLANICI_SOYADI, new { @class = "form-control" })
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Mail</label>
+            @*<input class="form-control " type="text" name="KULLANICI_MAIL" autocomplete="off" />*@
+            @Html.TextBoxFor(x => x.KULLANICI_MAIL, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Telefon No</label>
+            @*<input class="form-control " type="text" name="KULLANICI_TEL" autocomplete="off" />*@
+            @Html.TextBoxFor(x => x.KULLANICI_TEL, new { @class = "form-control" })
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Şifre</label>
+            @*<input class="form-control" type="password" name="KULLANICI_SIFRE" autocomplete="off" />*@
+            @Html.TextBoxFor(x => x.KULLANICI_SIFRE, new { @class = "form-control" })
+        </div>
+
+
+        <div class="col-md-12 text-center">
+            <div type="submit" id="btnGuncelle" class="btn btn-success mb-5" value="Giriş Yap">
+                <span class="indicator-label">Güncelle</span>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+
+    $(document).on('touchstart click', '#btnGuncelle', function (e) {
+        debugger;
+        var str = new FormData($('#frmGuncelle')[0]);
+        
+        $.ajax({
+            cache: false,
+            global: false,
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            mimeType: "multipart/form-data",
+            data: str,
+            dataType: 'json',
+            url: "/Kullanici/KullaniciGuncelle",
+            beforeSend: function () {
+            },
+            success: function () {
+                alert("Kayıt Guncellendi");
+                window.location = "/Kullanici/KullaniciListe";
+            },
+            error: function () {
+                alert("Başarısız");
+            },
+            complete: function () {
+
+            }
+        });
+    }
+    );
+</script>

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="STAJCALISMASIModelStoreContainer" CdmEntityContainer="STAJCALISMASIEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_HAT">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel.TBL_HAT">
+        <MappingFragment StoreEntitySet="TBL_HAT">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="HAT_NO" ColumnName="HAT_NO" />
+          <ScalarProperty Name="HAT_DURUM" ColumnName="HAT_DURUM" />
+          <ScalarProperty Name="KAYITTARIH" ColumnName="KAYITTARIH" />
+          <ScalarProperty Name="HATSATIS_DURUM" ColumnName="HATSATIS_DURUM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_HATSATIS">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel.TBL_HATSATIS">
+        <MappingFragment StoreEntitySet="TBL_HATSATIS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="SATISTARIH" ColumnName="SATISTARIH" />
+          <ScalarProperty Name="HATSATISKULLANICIID" ColumnName="HATSATISKULLANICIID" />
+          <ScalarProperty Name="HATSATISHATID" ColumnName="HATSATISHATID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_KULLANICI">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel.TBL_KULLANICI">
+        <MappingFragment StoreEntitySet="TBL_KULLANICI">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="KULLANICI_ADI" ColumnName="KULLANICI_ADI" />
+          <ScalarProperty Name="KULLANICI_SOYADI" ColumnName="KULLANICI_SOYADI" />
+          <ScalarProperty Name="KULLANICI_MAIL" ColumnName="KULLANICI_MAIL" />
+          <ScalarProperty Name="KULLANICI_TEL" ColumnName="KULLANICI_TEL" />
+          <ScalarProperty Name="KULLANICI_SIFRE" ColumnName="KULLANICI_SIFRE" />
+          <ScalarProperty Name="KAYITTARIHI" ColumnName="KAYITTARIHI" />
+          <ScalarProperty Name="KULLANICI_ADI_SOYADI" ColumnName="KULLANICI_ADI_SOYADI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VW_HATSATIS">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel.VW_HATSATIS">
+        <MappingFragment StoreEntitySet="VW_HATSATIS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="SATISTARIH" ColumnName="SATISTARIH" />
+          <ScalarProperty Name="HATSATISKULLANICIID" ColumnName="HATSATISKULLANICIID" />
+          <ScalarProperty Name="HATSATISHATID" ColumnName="HATSATISHATID" />
+          <ScalarProperty Name="HAT_DURUM" ColumnName="HAT_DURUM" />
+          <ScalarProperty Name="KULLANICI_ADI_SOYADI" ColumnName="KULLANICI_ADI_SOYADI" />
+          <ScalarProperty Name="HAT_NO" ColumnName="HAT_NO" />
+          <ScalarProperty Name="HATSATIS_DURUM" ColumnName="HATSATIS_DURUM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="STAJCALISMASIModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="STAJCALISMASIModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="STAJCALISMASIModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_hat" FunctionName="STAJCALISMASIModel.Store.sp_hat" />
+    <FunctionImportMapping FunctionImportName="sp_hatsatis" FunctionName="STAJCALISMASIModel.Store.sp_hatsatis" />
+    <FunctionImportMapping FunctionImportName="sp_hatsatisdurumdegistir" FunctionName="STAJCALISMASIModel.Store.sp_hatsatisdurumdegistir" />
+    <FunctionImportMapping FunctionImportName="sp_hatsatisdurumdegistir2" FunctionName="STAJCALISMASIModel.Store.sp_hatsatisdurumdegistir2" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="STAJCALISMASIModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STAJCALISMASIModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="STAJCALISMASIModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="STAJCALISMASIModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_kullanici" FunctionName="STAJCALISMASIModel.Store.sp_kullanici" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="STAJCALISMASIModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="STAJCALISMASIModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,90 @@
+﻿@using STAJORNEKCALISMA.Models;
+@model List<VW_HATSATIS>
+
+@{
+    ViewBag.Title = "HatSatisTanim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("HatSatisTanim", "Satis", FormMethod.Post, new { @id = "frmHatOnay", enctype = "multipart/form-data", autocomplete = "off" }))
+{
+    <!DOCTYPE html>
+    <html>
+    <head>
+
+    </head>
+    <body>
+        @if (Model.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th style="visibility:hidden">HATID</th>
+                    <th>KULLANICI ADI SOYADI</th>
+                    <th>HAT NO</th>
+                    <th>HAT ONAY</th>
+                </tr>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td style="visibility:hidden" class="nr">@x.HATSATISHATID</td>
+                        <td>@x.KULLANICI_ADI_SOYADI</td>
+                        <td>@x.HAT_NO</td>
+                        <td>
+                            <div id="btnHatOnay" class="btn btn-success">
+                                <span class="indicator-label">Hat Onay</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        }
+        else
+        {
+            <h3 style="text-align:center">Onay bekleyen işlem bulunmamaktadır.</h3>
+        }
+
+    </body>
+</html>
+}
+<script type="text/javascript">
+
+    $(document).on('touchstart click', '#btnHatOnay', function (e) {
+        debugger;
+        e.preventDefault();
+        Swal.fire({
+            title: 'Emin Misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet. Onayla',
+            cancelButtonText: 'Hayır. Onaylama'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var ID = parseInt($(this).closest("tr").find(".nr").text());
+                $.ajax({
+                    url: "/Satis/HatSatisTanim/",
+                    type: 'POST',
+                    data: {
+                        ID: ID
+                    },
+                    success: function (veri) {
+                        alert("Hat Onaylandı");
+                        window.location = "/Hat/HatListe";
+                    },
+                    error: function () {
+                        alert("Başarısız");
+                    },
+                });
+            }
+        })
+
+    }
+    );
+
+</script>
+
+

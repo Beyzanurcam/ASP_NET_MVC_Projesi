@@ -1,0 +1,51 @@
+﻿@using STAJORNEKCALISMA.Models;
+@model List<TBL_KULLANICI>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <table class="table" >
+        <tr>
+
+            <th>AD</th>
+            <th>SOYAD</th>
+            <th>MAİL</th>
+            <th>TELEFON NO</th>
+            <th>KAYIT TARİHİ</th>
+            <th>SİL</th>
+            <th>GÜNCELLE</th>
+        </tr>
+        @foreach (var x in Model)
+        {
+            <tr>
+
+                <th>@x.KULLANICI_ADI</th>
+                <th>@x.KULLANICI_SOYADI</th>
+                <th>@x.KULLANICI_MAIL</th>
+                <th>@x.KULLANICI_TEL</th>
+                <th>@x.KAYITTARIHI</th>
+                <th><a href="/Kullanici/KullaniciSil/@x.ID" class="btn btn-danger">Sil</a></th>
+                <th><a href="/Kullanici/KullaniciDetay/@x.ID" class="btn btn-warning">Güncelle</a></th>               
+                <th></th>
+
+            </tr>
+        }
+    </table>
+</body>
+</html>
+
+
+
+
+
+
+
+

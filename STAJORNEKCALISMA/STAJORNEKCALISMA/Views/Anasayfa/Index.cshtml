@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-xl-stretch">
+    <div class="card-header border-0  bg-dark" style="background-color: #1E1E2D!important;">
+        <h3 class="card-title fw-bolder text-white">Hat İşlemleri</h3>
+    </div>
+    <div class="card-body">
+        <div class="row g-0">
+            <div class="col-md-3">
+                <div class=" bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 position-relative">
+                    <span class="d-block my-2">
+                        <i class="bi bi-card-text fs-3x text-primary"></i>
+                    </span>
+                    <a href="/Hat/HatTanim" class="text-primary fw-bold fs-6 stretched-link">Hat Tanım</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class=" bg-light-success px-6 py-8 rounded-2 me-7 mb-7 position-relative">
+                    <span class="d-block my-2">
+                        <i class="bi bi-card-text fs-3x text-success"></i>
+                    </span>
+                    <a href="/Hat/HatListe" class="text-success fw-bold fs-6 stretched-link">Hat Listesi</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class=" bg-light-info px-6 py-8 rounded-2 me-7 mb-7 position-relative">
+                    <span class="d-block my-2">
+                        <i class="bi bi-credit-card fs-3x text-info"></i>
+                    </span>
+                    <a href="/Satis/HatSatis" class="text-info fw-bold fs-6 stretched-link">Hat Satış İşlemleri</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class=" bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 position-relative">
+                    <div class="symbol symbol-50px symbol-circle mb-5 position-absolute end-0 me-10">
+                        <span class="symbol-label fs-2 fw-lighter text-white bg-primary">@ViewBag.vb_HatSatisOnayBekleyenSayisi</span>
+                    </div>
+                    <span class="d-block my-2">
+                        <i class="bi bi-hourglass-split fs-3x text-primary"></i>
+                    </span>
+                    <a href="/Satis/HatSatisTanim" class="text-primary fw-bold fs-6 stretched-link">Hat Satış Onay Bekleyenler</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<br />
+<br />
+
+<div class="card card-xl-stretch">
+    <div class="card-header border-0" style="background-color: #1E1E2D!important" >
+        <h3 class="card-title fw-bolder text-white">Kullanıcı İşlemleri</h3>
+    </div>
+    <div class="card-body">
+        <div class="row g-0">
+            <div class="col-md-3">
+                <div class=" bg-light-primary px-6 py-8 rounded-2 me-7 mb-7 position-relative">
+                    <span class="d-block my-2">
+                        <i class="bi bi-card-text fs-3x text-primary"></i>
+                    </span>
+                    <a href="/Kullanici/KullaniciTanim" class="text-primary fw-bold fs-6 stretched-link">Kullanıcı Tanım</a>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class=" bg-light-success px-6 py-8 rounded-2 me-7 mb-7 position-relative">
+                    <div class="symbol symbol-50px symbol-circle mb-5 position-absolute end-0 me-10">
+                        <span class="symbol-label fs-2 fw-lighter text-white bg-success">@ViewBag.vb_KullaniciSayisi</span>
+                    </div>
+                    <span class="d-block my-2">
+                        <i class="bi bi-person-check fs-3x text-success"></i>
+                    </span>
+                    <a href="/Kullanici/KullaniciListe" class="text-success fw-bold fs-6 stretched-link">Kullanıcı Liste</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<br />
+<br />
+<br />
+<br />
+

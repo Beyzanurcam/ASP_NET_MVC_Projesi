@@ -1,0 +1,80 @@
+﻿       
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("KullaniciTanim", "Kullanici", FormMethod.Post, new { @id = "frmKayit", enctype = "multipart/form-data", autocomplete = "off" }))
+{
+    <div class="row mb-10">
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Ad</label>
+            <input class="form-control " type="text" name="KULLANICI_ADI" autocomplete="off" />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Soyad</label>
+            <input class="form-control " type="text" name="KULLANICI_SOYADI" autocomplete="off" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Mail</label>
+            <input class="form-control " type="text" name="KULLANICI_MAIL" autocomplete="off" />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Telefon No</label>
+            <input class="form-control " type="text" name="KULLANICI_TEL" autocomplete="off" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Şifre</label>
+            <input class="form-control" type="password" name="KULLANICI_SIFRE" autocomplete="off" />
+        </div>
+
+
+        <div class="col-md-12 text-center">
+            <div type="submit" id="btnKaydet" class="btn btn-success mb-5" value="Giriş Yap">
+                <span class="indicator-label">Kaydet</span>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+
+    $(document).on('touchstart click', '#btnKaydet', function (e) {
+        debugger;
+        var str = new FormData($('#frmKayit')[0]);
+        $.ajax({
+            cache: false,
+            global: false,
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            mimeType: "multipart/form-data",
+            data: str,
+            dataType: 'json',
+            url: "/Kullanici/KullaniciTanim",
+            beforeSend: function () {
+            },
+            success: function () {
+                alert("Kayıt Eklendi");
+                window.location = "/Kullanici/KullaniciListe";
+            },
+            error: function () {
+                alert("Başarısız");
+            },
+            complete: function () {
+
+            }
+        });
+    }
+    );
+</script>
+
+
+
+
+

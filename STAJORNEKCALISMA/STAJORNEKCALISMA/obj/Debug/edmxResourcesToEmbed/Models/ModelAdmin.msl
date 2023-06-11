@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="STAJCALISMASIModelStoreContainer" CdmEntityContainer="STAJCALISMASIEntities">
+    <EntitySetMapping Name="TBL_KULLANICI">
+      <EntityTypeMapping TypeName="STAJCALISMASIModel.TBL_KULLANICI">
+        <MappingFragment StoreEntitySet="TBL_KULLANICI">
+          <ScalarProperty Name="KULLANICI_ADI_SOYADI" ColumnName="KULLANICI_ADI_SOYADI" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SIFRELIID" ColumnName="SIFRELIID" />
+          <ScalarProperty Name="KULLANICI_ADI" ColumnName="KULLANICI_ADI" />
+          <ScalarProperty Name="KULLANICI_SOYADI" ColumnName="KULLANICI_SOYADI" />
+          <ScalarProperty Name="KULLANICI_MAIL" ColumnName="KULLANICI_MAIL" />
+          <ScalarProperty Name="KULLANICI_TEL" ColumnName="KULLANICI_TEL" />
+          <ScalarProperty Name="KULLANICI_SIFRE" ColumnName="KULLANICI_SIFRE" />
+          <ScalarProperty Name="KAYITTARIHI" ColumnName="KAYITTARIHI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_kullanici" FunctionName="STAJCALISMASIModel.Store.sp_kullanici" />
+  </EntityContainerMapping>
+</Mapping>

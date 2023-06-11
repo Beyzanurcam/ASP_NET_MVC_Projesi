@@ -1,0 +1,57 @@
+﻿@using STAJORNEKCALISMA.Models;
+@model List<TBL_HAT>
+@{
+    ViewBag.Title = "HatListe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>HAT NO</th>
+            <th>HAT DURUM</th>
+            <th>HAT SATIŞ DURUM</th>
+            <th>SİL</th>
+            <th>HAT DÜZENLE</th>
+        </tr>
+        @foreach (var x in Model)
+        {
+            <tr>
+
+                <td>@x.HAT_NO</td>
+                <td>
+                    @if (x.HAT_DURUM == 1)
+                    {
+                        <div>AKTİF</div>
+
+                    }
+                    else if (x.HAT_DURUM == 2)
+                    {
+                        <div>PASİF</div>
+                    }
+                </td>
+
+                <td>
+                    @if (x.HATSATIS_DURUM == 1)
+                    {
+                        <div>SATILMADI</div>
+                    }
+                    else if (x.HATSATIS_DURUM == 2)
+                    {
+                        <div>SATILDI</div>
+                    }
+                </td>
+
+                <th><a href="/Hat/HatSil/@x.ID" class="btn btn-danger">Sil</a></th>
+                <th><a href="/Hat/HatDetay/@x.ID" class="btn btn-warning">Hat Düzenle</a></th>
+            </tr>
+        }
+    </table>
+</body>
+</html>
+

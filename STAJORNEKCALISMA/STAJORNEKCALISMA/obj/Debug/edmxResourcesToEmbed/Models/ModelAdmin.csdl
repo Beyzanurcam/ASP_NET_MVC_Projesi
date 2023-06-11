@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="STAJCALISMASIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TBL_KULLANICI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SIFRELIID" Type="Guid" />
+    <Property Name="KULLANICI_ADI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_SOYADI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_TEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KULLANICI_SIFRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KAYITTARIHI" Type="DateTime" Precision="3" />
+    <Property Name="KULLANICI_ADI_SOYADI" Type="String" MaxLength="110" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="STAJCALISMASIEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TBL_KULLANICI" EntityType="Self.TBL_KULLANICI" />
+    <FunctionImport Name="sp_kullanici">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="SIFRELIID" Mode="In" Type="Guid" />
+      <Parameter Name="KULLANICI_ADI" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_SOYADI" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_MAIL" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_TEL" Mode="In" Type="String" />
+      <Parameter Name="KULLANICI_SIFRE" Mode="In" Type="String" />
+      <Parameter Name="KAYITTARIHI" Mode="In" Type="DateTime" />
+      <Parameter Name="KULLANICI_ADI_SOYADI" Mode="In" Type="String" />
+      <Parameter Name="islem" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>
